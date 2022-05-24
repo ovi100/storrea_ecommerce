@@ -1,0 +1,116 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+@mixin flexbox {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin align-items($value) {
+  -webkit-box-align: $value;
+  -ms-flex-align: $value;
+  align-items: $value;
+}
+@mixin justify-content($value) {
+  -webkit-box-pack: $value;
+  -ms-flex-pack: $value;
+  justify-content: $value;
+}
+@mixin transition($property, $time, $effect) {
+  -webkit-transition: $property $time $effect;
+  -moz-transition: $property $time $effect;
+  -ms-transition: $property $time $effect;
+  -o-transition: $property $time $effect;
+  transition: $property $time $effect;
+}
+
+$theme-color: #51C9A6;
+$wcolor: #fff;
+$bcolor: #000;
+
+.product-box {
+  position: relative;
+  border: 1px solid #ddd;
+  //margin: 10px;
+  @include transition(border, 0.4s, linear);
+  .photo {
+      position: relative;
+      overflow: hidden;
+      .tag {
+          span {
+              position: absolute;
+              top: 10px;
+              background: $theme-color;
+              @include border-radius(20px);
+              color: $wcolor;
+              font-size: 15px;
+              padding: 3px 12px;
+              text-transform: capitalize;
+          }
+          .tag-new {
+              right: 10px;
+          }
+      }
+  }
+  .content {
+      position: relative;
+      padding: 10px;
+      div:not(.add-to-cart) {
+          margin-bottom: 10px;
+      }
+      svg {
+          cursor: pointer;
+      }
+      .name-wishIcon {
+          @include flexbox;
+          @include align-items(center);
+          @include justify-content(space-between);
+          a {
+              color: $theme-color;
+              font-size: 15px;
+              font-weight: 600;
+              text-transform: capitalize;
+          }
+      }
+      .price {
+          .regular-price {
+              font-size: 18px;
+              font-weight: 600;
+          }
+          .old-price {
+              font-size: 12px;
+              font-style: italic;
+              margin-left: 10px;
+          }
+      }
+      .add-to-cart {
+          text-align: right;
+          
+          svg{
+              fill: $bcolor;
+              line {
+                  color: $bcolor;
+                  @include transition(all, 0.4s, linear);
+              }
+              @include transition(all, 0.4s, linear);
+              
+              &:hover {
+                  fill: $theme-color;
+                  line {
+                      color: $theme-color;
+                      @include transition(all, 0.4s, linear);
+                  }
+                  @include transition(all, 0.4s, linear);
+              }
+          }
+      }
+  }
+  &:hover {
+      border: 1px solid $theme-color;
+  }
+}

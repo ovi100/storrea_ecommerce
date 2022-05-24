@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+$theme-color: #51C9A6;
+$wcolor: #fff;
+$bcolor: #000;
+
+ul li {
+  list-style: none;
+}
+
+a {
+  color: $bcolor;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+      color: $theme-color;
+      background-color: transparent;
+      text-decoration: none;
+      outline: 0;
+  }
+}

@@ -1,0 +1,90 @@
+.product-box {
+  position: relative;
+  border: 1px solid #ddd;
+  -webkit-transition: border 0.4s linear;
+  -moz-transition: border 0.4s linear;
+  -ms-transition: border 0.4s linear;
+  -o-transition: border 0.4s linear;
+  transition: border 0.4s linear; }
+  .product-box .photo {
+    position: relative;
+    overflow: hidden; }
+    .product-box .photo .tag span {
+      position: absolute;
+      top: 10px;
+      background: #51C9A6;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      border-radius: 20px;
+      color: #fff;
+      font-size: 15px;
+      padding: 3px 12px;
+      text-transform: capitalize; }
+    .product-box .photo .tag .tag-new {
+      right: 10px; }
+  .product-box .content {
+    position: relative;
+    padding: 10px; }
+    .product-box .content div:not(.add-to-cart) {
+      margin-bottom: 10px; }
+    .product-box .content svg {
+      cursor: pointer; }
+    .product-box .content .name-wishIcon {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: space-between;
+      -ms-flex-pack: space-between;
+      justify-content: space-between; }
+      .product-box .content .name-wishIcon a {
+        color: #51C9A6;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: capitalize; }
+    .product-box .content .price .regular-price {
+      font-size: 18px;
+      font-weight: 600; }
+    .product-box .content .price .old-price {
+      font-size: 12px;
+      font-style: italic;
+      margin-left: 10px; }
+    .product-box .content .add-to-cart {
+      text-align: right; }
+      .product-box .content .add-to-cart svg {
+        fill: #000;
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear; }
+        .product-box .content .add-to-cart svg line {
+          color: #000;
+          -webkit-transition: all 0.4s linear;
+          -moz-transition: all 0.4s linear;
+          -ms-transition: all 0.4s linear;
+          -o-transition: all 0.4s linear;
+          transition: all 0.4s linear; }
+        .product-box .content .add-to-cart svg:hover {
+          fill: #51C9A6;
+          -webkit-transition: all 0.4s linear;
+          -moz-transition: all 0.4s linear;
+          -ms-transition: all 0.4s linear;
+          -o-transition: all 0.4s linear;
+          transition: all 0.4s linear; }
+          .product-box .content .add-to-cart svg:hover line {
+            color: #51C9A6;
+            -webkit-transition: all 0.4s linear;
+            -moz-transition: all 0.4s linear;
+            -ms-transition: all 0.4s linear;
+            -o-transition: all 0.4s linear;
+            transition: all 0.4s linear; }
+  .product-box:hover {
+    border: 1px solid #51C9A6; }
+
+/*# sourceMappingURL=ProductBox.css.map */
