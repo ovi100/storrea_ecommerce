@@ -2,18 +2,18 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './ProductBox.css';
 
-const ProductBox = ({ product }) => {
+const ProductBox = ({ product, isWishListPage }) => {
   const currency = '৳ ';
   return (
     <>
       <div className="product-box">
         <div className="photo">
-          <Link to={product.url}>
+          <Link to={`/product/${product.slug}`}>
             {
               product.featured_image_urls ?
-                <img className="img-fluid" src={product.featured_image_urls.original} alt={product.name} />
+                <img className="w-full h-full object-center object-cover" src={product.featured_image_urls.original} alt={product.name} />
                 :
-                <img className="img-fluid" src="https://placehold.jp/1000x1000.jpg" alt={product.name} />
+                <img className="w-full h-full object-center object-cover" src="https://placehold.jp/1000x1000.jpg" alt={product.name} />
             }
           </Link>
           {
@@ -27,31 +27,35 @@ const ProductBox = ({ product }) => {
         </div>
         <div className="content">
           <div className="name-wishIcon">
-            <Link to={`/product/${product.slug}`} className="line-truncate">{product.name}</Link>
-            <svg width="20px" height="20px" viewBox="0 0 32 32">
-              <title>Add to wishlist</title>
-              <path
-                d="M21.886 5.115c3.521 0 6.376 2.855 6.376 6.376 0 1.809-0.754 3.439-1.964 4.6l-10.297 10.349-10.484-10.536c-1.1-1.146-1.778-2.699-1.778-4.413 0-3.522 2.855-6.376 6.376-6.376 2.652 0 4.925 1.62 5.886 3.924 0.961-2.304 3.234-3.924 5.886-3.924zM21.886 4.049c-2.345 0-4.499 1.089-5.886 2.884-1.386-1.795-3.54-2.884-5.886-2.884-4.104 0-7.442 3.339-7.442 7.442 0 1.928 0.737 3.758 2.075 5.152l11.253 11.309 11.053-11.108c1.46-1.402 2.275-3.308 2.275-5.352 0-4.104-3.339-7.442-7.442-7.442v0z"
-                fill="#000000"></path>
-            </svg>
-            <svg viewBox="0 0 32 32" fill="#808080" width="15px" height="17px">
-              <title>Remove</title>
-              <g>
-                <path d="M24,31H8a3,3,0,0,1-3-3V9A1,1,0,0,1,7,9V28a1,1,0,0,0,1,1H24a1,1,0,0,0,1-1V9a1,1,0,0,1,2,0V28A3,3,0,0,1,24,31Z" />
-                <path d="M28,7H4A1,1,0,0,1,4,5H28a1,1,0,0,1,0,2Z" />
-                <path d="M20,7a1,1,0,0,1-1-1V3H13V6a1,1,0,0,1-2,0V2a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V6A1,1,0,0,1,20,7Z" />
-                <path d="M16,26a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0V25A1,1,0,0,1,16,26Z" />
-                <path d="M21,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,21,24Z" />
-                <path d="M11,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,11,24Z" />
-              </g>
-            </svg>
+            <Link to={`/product/${product.slug}`} className="truncate">{product.name}</Link>
+            {
+              isWishListPage ?
+                <svg viewBox="0 0 32 32" fill="#808080" width="15px" height="17px">
+                  <title>Remove</title>
+                  <g>
+                    <path d="M24,31H8a3,3,0,0,1-3-3V9A1,1,0,0,1,7,9V28a1,1,0,0,0,1,1H24a1,1,0,0,0,1-1V9a1,1,0,0,1,2,0V28A3,3,0,0,1,24,31Z" />
+                    <path d="M28,7H4A1,1,0,0,1,4,5H28a1,1,0,0,1,0,2Z" />
+                    <path d="M20,7a1,1,0,0,1-1-1V3H13V6a1,1,0,0,1-2,0V2a1,1,0,0,1,1-1h8a1,1,0,0,1,1,1V6A1,1,0,0,1,20,7Z" />
+                    <path d="M16,26a1,1,0,0,1-1-1V11a1,1,0,0,1,2,0V25A1,1,0,0,1,16,26Z" />
+                    <path d="M21,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,21,24Z" />
+                    <path d="M11,24a1,1,0,0,1-1-1V13a1,1,0,0,1,2,0V23A1,1,0,0,1,11,24Z" />
+                  </g>
+                </svg>
+                :
+                <svg width="20px" height="20px" viewBox="0 0 32 32">
+                  <title>Add to wishlist</title>
+                  <path
+                    d="M21.886 5.115c3.521 0 6.376 2.855 6.376 6.376 0 1.809-0.754 3.439-1.964 4.6l-10.297 10.349-10.484-10.536c-1.1-1.146-1.778-2.699-1.778-4.413 0-3.522 2.855-6.376 6.376-6.376 2.652 0 4.925 1.62 5.886 3.924 0.961-2.304 3.234-3.924 5.886-3.924zM21.886 4.049c-2.345 0-4.499 1.089-5.886 2.884-1.386-1.795-3.54-2.884-5.886-2.884-4.104 0-7.442 3.339-7.442 7.442 0 1.928 0.737 3.758 2.075 5.152l11.253 11.309 11.053-11.108c1.46-1.402 2.275-3.308 2.275-5.352 0-4.104-3.339-7.442-7.442-7.442v0z"
+                    fill="#000000"></path>
+                </svg>
+            }
           </div>
           <div className="price">
             {
               product.call_for_price ?
                 <>
-                  <Link to="/contact_us" className="d-none d-sm-block">Call for Price</Link>
-                  <Link to="tel:{{store.phone}}" className="d-block d-sm-none">Call for Price</Link>
+                  <Link to="/contact_us" className="xs:hidden">Call for Price</Link>
+                  <Link to="tel:{{store.phone}}" className="lg:hidden">Call for Price</Link>
                 </>
                 :
                 <>
