@@ -35,7 +35,7 @@ const Collections = () => {
     })
   }, [])
 
-  const [products, setProducts] = useState([]);
+  let [products, setProducts] = useState([]);
   const [sortOptions, setSortOptions] = useState([]);
   const [selectedSortOption, setSelectedSortOption] = useState("product_collections.position ASC");
   const [filters, setFilters] = useState([]);
@@ -75,9 +75,27 @@ const Collections = () => {
   //console.log(location, id, products_url);
   console.log(sortOptions, filters);
   console.log(products);
-  console.log(loading);
 
   const [showMobileFilter, setShowMobileFilter] = useState(false);
+
+  const [checkbox, setCheckbox] = useState(null);
+  const [checked, setChecked] = useState(false);
+
+  const filterCheckboxChange = (e) => {
+    const target = e.target;
+    const checked = target.type === 'checkbox' ? target.checked : null;
+    //const name = e.target.name;
+    const value = target.value;
+    setChecked(checked)
+    setCheckbox(value);
+  }
+
+  console.log('checkbox:', checked, checkbox);
+
+  if (checked && checkbox) {
+    products = products.filter(product => parseInt(product.price.replace(/[^\d.]/g, "")) < parseInt(checkbox));
+    console.log('Filter Products:', products);
+  }
 
   return (
     <div>
@@ -86,7 +104,7 @@ const Collections = () => {
         <div className="bg-white">
           <div>
             {/*Off-canvas filters for mobile*/}
-            <div className="relative lg:hidden">
+            <div className="relative z-50 lg:hidden">
               <div onClick={() => setShowMobileFilter(!showMobileFilter)}
                 className={`fixed inset-0 bg-black bg-opacity-25 z-40 ease-in-out duration-300 ${showMobileFilter ? "" : "hidden"}`}></div>
               <div className={`fixed inset-0 flex z-40 ease-in-out duration-300 ${showMobileFilter ? "translate-x-0 " : "translate-x-full"}`}>
@@ -278,9 +296,15 @@ const Collections = () => {
                               {
                                 filter.values.map((value, index) => (
                                   <div className="flex items-center" key={index}>
-                                    <input id="filter-color-0" name={value.label} value="white" type="checkbox"
-                                      className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" />
-                                    <label htmlFor="filter-color-0" className="ml-3 text-sm text-gray-600">{value.label}</label>
+                                    <input
+                                      id={`checkbox-` + index}
+                                      className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                                      name={value.label}
+                                      value={value.max_value}
+                                      type="checkbox"
+                                      onChange={filterCheckboxChange}
+                                    />
+                                    <label htmlFor={`checkbox-` + index} className="ml-3 text-sm text-gray-600">{value.label}</label>
                                   </div>
                                 ))
                               }
