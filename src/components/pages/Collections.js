@@ -94,17 +94,18 @@ const Collections = () => {
 
   if (checked && checkbox) {
     products = products.filter(product => parseInt(product.price.replace(/[^\d.]/g, "")) < parseInt(checkbox));
+    //setProducts([products, ...products]);
     console.log('Filter Products:', products);
   }
 
   return (
     <div>
       <Menubar />
-      <div className="container mx-auto">
+      <div className="container mx-auto px-3 lg:px-0">
         <div className="bg-white">
           <div>
             {/*Off-canvas filters for mobile*/}
-            <div className="relative z-50 lg:hidden">
+            <div className="relative z-30 lg:hidden">
               <div onClick={() => setShowMobileFilter(!showMobileFilter)}
                 className={`fixed inset-0 bg-black bg-opacity-25 z-40 ease-in-out duration-300 ${showMobileFilter ? "" : "hidden"}`}></div>
               <div className={`fixed inset-0 flex z-40 ease-in-out duration-300 ${showMobileFilter ? "translate-x-0 " : "translate-x-full"}`}>
@@ -143,7 +144,7 @@ const Collections = () => {
                         <div className="space-y-4">
                           {
                             categories.map((category, index) => (
-                              <div className="items-center">
+                              <div className="items-center" key={index}>
                                 <Link
                                   key={index}
                                   to={`/collection/${category.name.split(' ').join('-').toLowerCase()}`}
@@ -198,7 +199,7 @@ const Collections = () => {
             </div>
 
             <main>
-              <div className="relative z-10 flex items-baseline justify-between pt-10 pb-6 border-b border-gray-200">
+              <div className="relative flex items-baseline justify-between pt-10 pb-6 border-b border-gray-200">
                 <h1 className="capitalize text-4xl font-extrabold tracking-tight text-gray-900">{collectionName.split('-').join(' ')}</h1>
                 <div className="flex items-center">
                   <div className="relative inline-block text-left">
@@ -215,9 +216,12 @@ const Collections = () => {
                       <div className="py-1">
                         {
                           sortOptions.map((option, index) => (
-                            <p onClick={() => selectedOption(option.value)}
+                            <p
+                              onClick={() => selectedOption(option.value)}
                               className="cursor-pointer text-gray-500 block px-4 py-2 text-sm"
-                              id={`sort-option-` + index}>
+                              id={`sort-option-` + index}
+                              key={index}
+                            >
                               {option.text}
                             </p>
                           ))
@@ -235,7 +239,7 @@ const Collections = () => {
                   </button>
                 </div>
               </div>
-              <section className="pt-6 pb-24">
+              <section className="collection-grid">
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-8 gap-y-10">
                   {/* Filters */}
                   <form className="hidden lg:block">
@@ -260,12 +264,15 @@ const Collections = () => {
                         <div className="space-y-4">
                           {
                             categories.map((category, index) => (
-                              <div className="items-center">
+                              <div className="items-center" key={index}>
                                 <Link
                                   key={index}
                                   to={`/collection/${category.name.split(' ').join('-').toLowerCase()}`}
                                   state={{ id: category.id }}
-                                  className="capitalize ml-3 text-sm text-gray-600">{category.name}</Link>
+                                  className="capitalize ml-3 text-sm text-gray-600"
+                                >
+                                  {category.name}
+                                </Link>
                               </div>
                             ))
                           }
@@ -322,11 +329,15 @@ const Collections = () => {
                     {loading ?
                       <Loader />
                       :
-                      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                         {
                           products.map((product, index) => (
                             <div className="group relative mb-3" key={index}>
-                              <ProductBox key={index} product={product} isWishListPage={isWishListPage} />
+                              <ProductBox
+                                key={index}
+                                product={product}
+                                isWishListPage={isWishListPage}
+                                state={{ name: collectionName }} />
                             </div>
                           ))
                         }

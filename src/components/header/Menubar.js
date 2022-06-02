@@ -19,6 +19,8 @@ const Menubar = () => {
     })
   }, [])
 
+  const [showMobileNav, setShowMobileNav] = useState(false);
+
   //console.log(categories);
 
 
@@ -34,21 +36,29 @@ const Menubar = () => {
 
   return (
     <>
-      <nav className={scroll ? "bg-gray-800 fixed top-0 left-0 right-0 z-50 transition-all" : "bg-gray-800 transition-all"}>
+      {/* <nav className={scroll ? "bg-gray-800 fixed top-0 left-0 right-0 z-50 transition-all" : "bg-gray-800 transition-all"}> */}
+      <nav className={`bg-gray-800 z-30 ease-in-out duration-300 ${scroll ? "fixed top-0 left-0 right-0" : ""}`}>
         <div className="container mx-auto sm:px-4">
-          <div className="relative flex items-center justify-between h-16">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <div className="relative flex items-center justify-between h-16 px-3 lg:px-0">
+            <div className="toggle-button items-center">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 
+                hover:text-white hover:bg-gray-700 focus:outline-none"
+                aria-controls="mobile-menu" aria-expanded="false"
+                onClick={() => setShowMobileNav(!showMobileNav)}
+              >
+                <span className="sr-only">Open menu</span>
 
-              <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                <span className="sr-only">Open main menu</span>
-
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-
-                <svg className="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                {showMobileNav ?
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  :
+                  <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                }
               </button>
             </div>
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
@@ -69,11 +79,40 @@ const Menubar = () => {
                 </div>
               </div>
             </div>
+            <div class="icons ml-auto flex items-center">
+              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                <a href="/sign_in" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign in</a>
+                <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+                <a href="/sign_up" class="text-sm font-medium text-gray-700 hover:text-gray-800">Sign up</a>
+              </div>
+
+              {/* Search */}
+              {/* <div class="flex lg:ml-6">
+                <a href="/search" class="p-2 text-gray-400 hover:text-gray-500">
+                  <span class="sr-only">Search</span>
+                  <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </a>
+              </div> */}
+
+              {/* Cart */}
+              <div class="ml-4 flow-root lg:ml-6">
+                <a href="/cart" class="group -m-2 p-2 flex items-center">
+
+                  <svg class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
+                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                  <span class="sr-only">items in cart, view bag</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
-
-        <div className="bg-white fixed h-full w-80 hidden" id="mobile-menu">
+        <div onClick={() => setShowMobileNav(!showMobileNav)} className={`fixed inset-0 top-16 bg-black bg-opacity-25 z-20 ease-in-out duration-300 ${showMobileNav ? "" : "hidden"}`}></div>
+        <div className={`bg-white fixed h-full w-80 z-30 ease-in-out duration-300 ${showMobileNav ? "translate-x-0 " : "-translate-x-full"}`} id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {
               categories.map((category, index) => (
@@ -81,7 +120,7 @@ const Menubar = () => {
                   key={index}
                   to={`/collection/${category.name.split(' ').join('-').toLowerCase()}`}
                   state={{ id: category.id }}
-                  className="block text-black-500 hover:text-white text-lg font-medium">{category.name}</Link>
+                  className="block text-black-400 hover:text-gray-300 text-lg font-medium">{category.name}</Link>
               ))
             }
           </div>

@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './ProductBox.css';
 
-const ProductBox = ({ product, isWishListPage }) => {
+const ProductBox = ({ product, isWishListPage, state }) => {
   const currency = '৳ ';
   return (
     <>
       <div className="product-box">
         <div className="photo">
-          <Link to={`/product/${product.slug}`}>
+          <Link to={`/product/${product.slug}`} state={state}>
             {
               product.featured_image_urls ?
                 <img className="w-full h-full object-center object-cover" src={product.featured_image_urls.original} alt={product.name} />
@@ -27,7 +27,7 @@ const ProductBox = ({ product, isWishListPage }) => {
         </div>
         <div className="content">
           <div className="name-wishIcon">
-            <Link to={`/product/${product.slug}`} className="truncate">{product.name}</Link>
+            <Link to={`/product/${product.slug}`} className="truncate" state={state}>{product.name}</Link>
             {
               isWishListPage ?
                 <svg viewBox="0 0 32 32" fill="#808080" width="15px" height="17px">
