@@ -6,8 +6,8 @@
 .pnp.js
 src/.sass-cache/
 src/App.css.map
-src/components/pages/.sass-cache/
-src/components/pages/.sass-cache/ProductBox.css.map
+src/components/pages/common/.sass-cache/
+src/components/pages/common/ProductBox.css.map
 
 # testing
 /coverage

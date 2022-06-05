@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom';
 import Menubar from '../header/Menubar';
-import ProductBox from './ProductBox';
-import Loader from '../Loader';
+import ProductBox from '../common/ProductBox';
+import Loader from '../common/Loader';
 import { getCategories } from '../header/GetCategories';
 import { Link } from "react-router-dom";
 
