@@ -212,7 +212,7 @@ const Collections = () => {
                       </button>
                     </div>
 
-                    <div className={sortDropdownOpen ? "origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" : "hidden"}>
+                    <div className={sortDropdownOpen ? "origin-top-right absolute right-0 mt-2 w-40 z-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" : "hidden"}>
                       <div className="py-1">
                         {
                           sortOptions.map((option, index) => (
