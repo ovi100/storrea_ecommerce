@@ -15,6 +15,7 @@ const Menubar = () => {
 
   useEffect(() => {
     getCategories(store_name).then((data) => {
+      //console.log(data);
       setCategories(data);
     })
   }, [])

@@ -20,7 +20,7 @@ const Collections = () => {
 
   // Toggle function for accordion button
   const toggleOption = (index) => {
-    console.log(typeof index, index);
+    //console.log(typeof index, index);
     if (activeAccordion === index) {
       return setActiveAccordion(null);
     }
