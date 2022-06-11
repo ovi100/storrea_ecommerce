@@ -57,13 +57,13 @@ const Home = () => {
       setFeature_collection_1(data);
     })
     getProducts(29287).then((data) => {
-      setFeature_products_2(data);
+      setFeature_products_1(data);
     })
     collectionDetails(29296).then((data) => {
       setFeature_collection_2(data);
     })
     getProducts(29296).then((data) => {
-      setFeature_products_1(data);
+      setFeature_products_2(data);
     })
   }, [])
 
