@@ -4,20 +4,46 @@ import './ProductBox.css';
 
 const ProductBox = ({ product, isWishListPage, state }) => {
   const currency = '৳ ';
+  const base_url = 'https://ovi.storrea.com';
+  const {
+    id, name, slug, is_new, add_to_cart_url, url,
+    has_variants, featured_image_urls, call_for_price, price,
+    compare_at_price, stock_control, stock, variant_options
+  } = product;
+  
+  const addToCart = (product_id) => {
+    alert(product_id);
+    let url = base_url + add_to_cart_url;
+    const data = {
+      id: product_id
+    }
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch((error) => console.error('Error:', error));
+  }
+
   return (
     <>
-      <div className="product-box">
+      <div className="product-box" id={id}>
         <div className="photo">
-          <Link to={`/product/${product.slug}`} state={state}>
+          <Link to={`/product/${slug}`} state={state}>
             {
-              product.featured_image_urls ?
-                <img className="w-full h-full object-center object-cover" src={product.featured_image_urls.original} alt={product.name} />
+              featured_image_urls ?
+                <img className="w-full h-full object-center object-cover" src={product.featured_image_urls.original} alt={name} />
                 :
-                <img className="w-full h-full object-center object-cover" src="https://placehold.jp/1000x1000.jpg" alt={product.name} />
+                <img className="w-full h-full object-center object-cover" src="https://placehold.jp/1000x1000.jpg" alt={name} />
             }
           </Link>
           {
-            product.is_new ?
+            is_new ?
               <div className="tag">
                 <span className="tag-new">new</span>
               </div>
@@ -27,7 +53,7 @@ const ProductBox = ({ product, isWishListPage, state }) => {
         </div>
         <div className="content">
           <div className="name-wishIcon">
-            <Link to={`/product/${product.slug}`} className="truncate" state={state}>{product.name}</Link>
+            <Link to={`/product/${slug}`} className="truncate" state={state}>{name}</Link>
             {
               isWishListPage ?
                 <svg viewBox="0 0 32 32" fill="#808080" width="15px" height="17px">
@@ -52,17 +78,17 @@ const ProductBox = ({ product, isWishListPage, state }) => {
           </div>
           <div className="price">
             {
-              product.call_for_price ?
+              call_for_price ?
                 <>
                   <Link to="/contact_us" className="xs:hidden">Call for Price</Link>
                   <Link to="tel:{{store.phone}}" className="lg:hidden">Call for Price</Link>
                 </>
                 :
                 <>
-                  <span className="regular-price">{currency + product.price}</span>
+                  <span className="regular-price">{currency + price}</span>
                   {
-                    product.compare_at_price ?
-                      <s className="old-price">{currency + product.compare_at_price}</s>
+                    compare_at_price ?
+                      <s className="old-price">{currency + compare_at_price}</s>
                       :
                       null
                   }
@@ -71,8 +97,8 @@ const ProductBox = ({ product, isWishListPage, state }) => {
           </div>
           <div className="add-to-cart">
             {
-              product.has_variants ?
-                <Link to={product.url} title="View Details">
+              has_variants ?
+                <Link to={url} title="View Details">
                   <svg viewBox="0 0 96 96" height="20px" width="20px">
                     <path d="M12,52h62.344L52.888,73.456c-1.562,1.562-1.562,4.095-0.001,5.656c1.562,1.562,4.096,1.562,5.658,0l28.283-28.284l0,0  c0.186-0.186,0.352-0.391,0.498-0.609c0.067-0.101,0.114-0.21,0.172-0.315c0.066-0.124,0.142-0.242,0.195-0.373  c0.057-0.135,0.089-0.275,0.129-0.415c0.033-0.111,0.076-0.217,0.099-0.331C87.973,48.525,88,48.263,88,48l0,0  c0-0.003-0.001-0.006-0.001-0.009c-0.001-0.259-0.027-0.519-0.078-0.774c-0.024-0.12-0.069-0.231-0.104-0.349  c-0.039-0.133-0.069-0.268-0.123-0.397c-0.058-0.139-0.136-0.265-0.208-0.396c-0.054-0.098-0.097-0.198-0.159-0.292  c-0.146-0.221-0.314-0.427-0.501-0.614L58.544,16.888c-1.562-1.562-4.095-1.562-5.657-0.001c-1.562,1.562-1.562,4.095,0,5.658  L74.343,44L12,44c-2.209,0-4,1.791-4,4C8,50.209,9.791,52,12,52z" />
                   </svg>
@@ -81,8 +107,8 @@ const ProductBox = ({ product, isWishListPage, state }) => {
                 null
             }
             {
-              product.has_variants === false && (product.stock_control === true && product.stock > 0) ?
-                <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+              has_variants === false && (stock_control === true && stock > 0) ?
+                <svg onClick={() => addToCart(id)} width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
                   strokeLinecap="round" strokeLinejoin="round">
                   <title>Add to Cart</title>
                   <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -92,7 +118,7 @@ const ProductBox = ({ product, isWishListPage, state }) => {
                 null
             }
             {
-              product.has_variants === false && (product.stock_control === true && product.stock < 1) ?
+              has_variants === false && (stock_control === true && stock < 1) ?
                 <svg viewBox="0 0 96 96" height="20px" width="20px" strokeWidth="2">
                   <title>Out of Stock</title>
                   <path d="M48,0A48,48,0,1,0,96,48,48.0512,48.0512,0,0,0,48,0Zm0,12a35.71,35.71,0,0,1,20.7993,6.7214L18.717,68.7935A35.8886,35.8886,0,0,1,48,12Zm0,72a35.71,35.71,0,0,1-20.7993-6.7214L77.283,27.2065A35.8886,35.8886,0,0,1,48,84Z" />
@@ -102,8 +128,8 @@ const ProductBox = ({ product, isWishListPage, state }) => {
             }
           </div>
           {
-            product.variant_options ?
-              <p>{product.variant_options}</p>
+            variant_options ?
+              <p>{variant_options}</p>
               :
               null
           }

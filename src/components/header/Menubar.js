@@ -99,13 +99,13 @@ const Menubar = () => {
 
               {/* Cart */}
               <div className="ml-4 flow-root lg:ml-6">
-                <a href="/cart" className="group -m-2 p-2 flex items-center">
+                <Link to="/cart" className="group -m-2 p-2 flex items-center">
                   <svg className="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
                   <span className="ml-2 text-sm font-medium text-gray-300 group-hover:text-gray-600">0</span>
                   <span className="sr-only">items in cart, view bag</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
