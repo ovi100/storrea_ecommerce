@@ -337,7 +337,7 @@ const Collections = () => {
                                 key={index}
                                 product={product}
                                 isWishListPage={isWishListPage}
-                                state={{ name: collectionName }} />
+                                state={{ collectionName: collectionName, productId: product.id }} />
                             </div>
                           ))
                         }

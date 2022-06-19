@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 const ProductDetails = () => {
   const { productName } = useParams();
-  const base_url = 'https://ovi.storrea.com/product/';
-  const product_url = base_url + productName + '.json';
-
   const location = useLocation();
-  console.log(location);
-  const { collectionName } = location.state;
-  console.log(collectionName);
+  console.log(location, productName);
+  const { collectionName, productId } = location.state;
+  console.log(collectionName, productId);
+
+  const base_url = 'https://ovi.storrea.com/product/';
+  const product_url = base_url + productId + '.json';
 
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState([]);
@@ -36,8 +36,8 @@ const ProductDetails = () => {
   console.log(product_url);
   console.log(product);
   console.log(product.options);
-  const options = product.options.map((item) => (Object.values(item)));
-  console.log(options);
+  //const options = product.options.map((item) => (Object.values(item)));
+  //console.log(options);
 
   return (
     <div>
@@ -65,11 +65,12 @@ const ProductDetails = () => {
                       </div>
                     </li>
 
-                    {/* <li>
+                    <li>
                       <div className="flex items-center">
                         <Link
-                          to={`/collection/${collectionName.name.split(' ').join('-').toLowerCase()}`}
+                          to={`/collection/${collectionName}`}
                           className="capitalize ml-3 text-sm text-gray-600"
+                          state={{ id: collectionName }}
                         >
                           {collectionName.split('-').join(' ')}
                         </Link>
@@ -77,7 +78,7 @@ const ProductDetails = () => {
                           <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
                       </div>
-                    </li> */}
+                    </li>
 
                     <li className="text-sm">
                       <span className="font-medium text-gray-500 hover:text-gray-600"> {product.name} </span>
@@ -197,11 +198,11 @@ const ProductDetails = () => {
                       <a href="/modal" className="block mt-10 text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
                       {product.options.length && (
                         product.options.map((item, index) => (
-                          item[index].map((value, i) => (
+                          //item[index].map((value, i) => (
 
                             <div className="mt-10" key={index}>
                               <div className="flex items-center justify-between">
-                                <h3 className="text-sm text-gray-900 font-medium">{value.option}</h3>
+                                <h3 className="text-sm text-gray-900 font-medium">{item.option}</h3>
                               </div>
                               <fieldset className="mt-4">
                                 <legend className="sr-only">Choose a size</legend>
@@ -217,7 +218,7 @@ const ProductDetails = () => {
                                 </div>
                               </fieldset>
                             </div>
-                          ))
+                          //))
                         ))
                       )
                       }

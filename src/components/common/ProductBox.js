@@ -4,16 +4,18 @@ import './ProductBox.css';
 
 const ProductBox = ({ product, isWishListPage, state }) => {
   const currency = '৳ ';
-  const base_url = 'https://ovi.storrea.com';
+  const base_url = 'https://ovi.storrea.com/';
   const {
-    id, name, slug, is_new, add_to_cart_url, url,
+    id, name, slug, is_new, url,
     has_variants, featured_image_urls, call_for_price, price,
     compare_at_price, stock_control, stock, variant_options
   } = product;
+
+  //console.log(product,add_to_cart_url);
   
   const addToCart = (product_id) => {
-    alert(product_id);
-    let url = base_url + add_to_cart_url;
+    //alert(product_id);
+    let url = base_url + 'store/carts/add.json';
     const data = {
       id: product_id
     }
